@@ -35,5 +35,13 @@ class Code
   def length
     @pegs.length
   end
+  #rspec real pegs are RGRB
+  def num_exact_matches(guess)
+    count = 0
+    guess.pegs.each_with_index do |peg, i|
+      count += 1 if @pegs[i] == peg
+    end
+    count
+  end
 
 end

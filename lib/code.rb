@@ -21,7 +21,9 @@ class Code
   end
 
   def self.random(length)
-    Code.new(Array.new(length, POSSIBLE_PEGS.keys.sample))
+    arr = []
+    (1..length).each { arr << POSSIBLE_PEGS.keys.sample }
+    Code.new(arr)
   end
 
   def self.from_string(pegs)
@@ -35,11 +37,11 @@ class Code
   def length
     @pegs.length
   end
-  #rspec real pegs are RGRB
+
   def num_exact_matches(guess)
     count = 0
     guess.pegs.each_with_index do |peg, i|
-      count += 1 if @pegs[i] == peg
+      count += 1 if self.[](i) == peg
     end
     count
   end
@@ -47,7 +49,7 @@ class Code
   def num_near_matches(guess)
     count = 0
     guess.pegs.each_with_index do |peg, i|
-      count += 1 if pegs.include?(peg) && @pegs[i] != peg
+      count += 1 if pegs.include?(peg) && self.[](i) != peg
     end
     count
   end
@@ -55,5 +57,4 @@ class Code
   def ==(other_code)
     self.pegs == other_code.pegs
   end
-
 end
